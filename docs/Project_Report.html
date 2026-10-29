@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Report — Decentralized File Hash Verification System</title>
+    <style>
+        /* ═══════════════════════════════════════════════
+           PRINT-READY PROJECT REPORT STYLESHEET
+           Open in browser → Ctrl+P → Save as PDF
+           ═══════════════════════════════════════════════ */
+
+        @page {
+            size: A4;
+            margin: 20mm 18mm 20mm 18mm;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        /* ─── Cover Page ─── */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            page-break-after: always;
+            border: 3px double #1a1a1a;
+            padding: 40px;
+            margin-bottom: 0;
+        }
+        .cover .university {
+            font-size: 16pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .cover .dept {
+            font-size: 12pt;
+            color: #444;
+            margin-bottom: 50px;
+        }
+        .cover .title-block {
+            border: 2px solid #333;
+            padding: 24px 40px;
+            margin: 20px 0 40px;
+        }
+        .cover .project-label {
+            font-size: 12pt;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .cover .project-title {
+            font-size: 22pt;
+            font-weight: bold;
+            color: #111;
+            line-height: 1.3;
+        }
+        .cover .subtitle {
+            font-size: 11pt;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .cover .info-table {
+            margin-top: 40px;
+            font-size: 12pt;
+            text-align: left;
+        }
+        .cover .info-table td {
+            padding: 6px 16px;
+        }
+        .cover .info-table td:first-child {
+            font-weight: bold;
+            color: #333;
+        }
+        .cover .date {
+            margin-top: 50px;
+            font-size: 12pt;
+            color: #555;
+        }
+
+        /* ─── Table of Contents ─── */
+        .toc {
+            page-break-after: always;
+            padding: 40px 0;
+        }
+        .toc h2 {
+            text-align: center;
+            font-size: 18pt;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .toc-list {
+            list-style: none;
+            font-size: 12pt;
+        }
+        .toc-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        .toc-list li.sub {
+            padding-left: 30px;
+            font-size: 11pt;
+            color: #444;
+        }
+        .toc-list li span.num { font-weight: bold; margin-right: 12px; }
+
+        /* ─── Chapters ─── */
+        .chapter {
+            page-break-before: always;
+            padding-top: 10px;
+        }
+        .chapter:first-of-type {
+            page-break-before: auto;
+        }
+
+        h1.chapter-title {
+            font-size: 20pt;
+            border-bottom: 3px solid #222;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+        h1.chapter-title span.num {
+            display: inline-block;
+            margin-right: 12px;
+            color: #444;
+        }
+
+        h2 {
+            font-size: 15pt;
+            margin: 24px 0 12px;
+            color: #222;
+        }
+        h2 span.num { margin-right: 8px; color: #666; }
+
+        h3 {
+            font-size: 13pt;
+            margin: 18px 0 8px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        /* ─── Tables ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 20px;
+            font-size: 11pt;
+        }
+        table, th, td {
+            border: 1px solid #999;
+        }
+        th {
+            background: #f0f0f0;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+        caption {
+            font-style: italic;
+            margin-bottom: 6px;
+            color: #555;
+            font-size: 10.5pt;
+            text-align: center;
+        }
+
+        /* ─── Code Blocks ─── */
+        pre {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 14px 16px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9.5pt;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 12px 0 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 10pt;
+            background: #f0f0f0;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        /* ─── Lists ─── */
+        ul, ol {
+            margin: 8px 0 16px 24px;
+        }
+        li { margin-bottom: 6px; }
+
+        /* ─── Figures ─── */
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .figure .diagram {
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            background: #fafafa;
+            max-width: 100%;
+            text-align: left;
+        }
+        .figure-caption {
+            font-style: italic;
+            font-size: 10.5pt;
+            color: #555;
+            margin-top: 8px;
+        }
+
+        /* ─── ASCII Architecture Diagrams ─── */
+        .arch-diagram {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 1.4;
+            white-space: pre;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        /* ─── Highlights ─── */
+        .highlight {
+            background: #fffde7;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin: 14px 0;
+            font-size: 11pt;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 16px;
+            margin: 14px 0;
+            font-size: 11pt;
+        }
+
+        /* ─── Footer ─── */
+        .page-footer {
+            text-align: center;
+            font-size: 9pt;
+            color: #999;
+            margin-top: 40px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        @media print {
+            body { font-size: 11pt; }
+            .no-print { display: none; }
+            .chapter { page-break-before: always; }
+            pre { font-size: 8.5pt; }
+        }
+
+        /* Print button */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 28px;
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 9999;
+        }
+        .print-btn:hover { background: #1558b0; }
+    </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF (Ctrl+P)</button>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COVER PAGE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="cover">
+    <div class="university">[Your University / College Name]</div>
+    <div class="dept">Department of Computer Science &amp; Engineering</div>
+
+    <div class="title-block">
+        <div class="project-label">Project Report</div>
+        <div class="project-title">Decentralized File Hash<br/>Verification System</div>
+        <div class="subtitle">Using Solidity, Ethereum Blockchain, MetaMask &amp; Ganache</div>
+    </div>
+
+    <table class="info-table">
+        <tr><td>Submitted By:</td><td>[Your Name]</td></tr>
+        <tr><td>Roll Number:</td><td>[Your Roll No.]</td></tr>
+        <tr><td>Course:</td><td>[Course Name / Code]</td></tr>
+        <tr><td>Guide:</td><td>[Faculty Name]</td></tr>
+    </table>
+
+    <div class="date">Academic Year 2026–2027</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="toc">
+    <h2>Table of Contents</h2>
+    <ul class="toc-list">
+        <li><span><span class="num">1.</span> Introduction</span></li>
+        <li class="sub"><span>1.1 Problem Statement</span></li>
+        <li class="sub"><span>1.2 Objectives</span></li>
+        <li class="sub"><span>1.3 Scope</span></li>
+        <li><span><span class="num">2.</span> Literature Review &amp; Background</span></li>
+        <li class="sub"><span>2.1 What is Blockchain?</span></li>
+        <li class="sub"><span>2.2 Ethereum &amp; Smart Contracts</span></li>
+        <li class="sub"><span>2.3 Cryptographic Hash Functions</span></li>
+        <li class="sub"><span>2.4 Existing Solutions</span></li>
+        <li><span><span class="num">3.</span> Blockchain Components Used</span></li>
+        <li class="sub"><span>3.1 Solidity</span></li>
+        <li class="sub"><span>3.2 Remix IDE</span></li>
+        <li class="sub"><span>3.3 MetaMask</span></li>
+        <li class="sub"><span>3.4 Ganache</span></li>
+        <li class="sub"><span>3.5 Truffle Framework</span></li>
+        <li class="sub"><span>3.6 Web3.js</span></li>
+        <li><span><span class="num">4.</span> System Architecture</span></li>
+        <li class="sub"><span>4.1 High-Level Architecture</span></li>
+        <li class="sub"><span>4.2 Data Flow Diagram</span></li>
+        <li class="sub"><span>4.3 Smart Contract Architecture</span></li>
+        <li class="sub"><span>4.4 Frontend Architecture</span></li>
+        <li><span><span class="num">5.</span> System Design &amp; Implementation</span></li>
+        <li class="sub"><span>5.1 Smart Contract Design</span></li>
+        <li class="sub"><span>5.2 Data Structures</span></li>
+        <li class="sub"><span>5.3 Contract Functions</span></li>
+        <li class="sub"><span>5.4 Events &amp; Modifiers</span></li>
+        <li class="sub"><span>5.5 Frontend Implementation</span></li>
+        <li><span><span class="num">6.</span> Working of the System</span></li>
+        <li class="sub"><span>6.1 File Registration Flow</span></li>
+        <li class="sub"><span>6.2 File Verification Flow</span></li>
+        <li class="sub"><span>6.3 Transaction Lifecycle</span></li>
+        <li><span><span class="num">7.</span> Testing</span></li>
+        <li><span><span class="num">8.</span> Security Analysis</span></li>
+        <li><span><span class="num">9.</span> Gas Cost Analysis</span></li>
+        <li><span><span class="num">10.</span> Advantages &amp; Limitations</span></li>
+        <li><span><span class="num">11.</span> Future Enhancements</span></li>
+        <li><span><span class="num">12.</span> Conclusion</span></li>
+        <li><span><span class="num">13.</span> References</span></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 1 — INTRODUCTION
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">1.</span> Introduction</h1>
+
+    <p>
+        In today's digital world, ensuring the integrity and authenticity of files is a critical challenge.
+        Documents, certificates, legal contracts, software releases, and sensitive data are frequently
+        shared across networks — and any unauthorized modification can have serious consequences. Traditional
+        file verification methods rely on centralized authorities, which are vulnerable to single points of
+        failure, data tampering, and trust issues.
+    </p>
+    <p>
+        This project presents a <strong>Decentralized File Hash Verification System</strong> built on the
+        Ethereum blockchain. It enables users to register the cryptographic hash (SHA-256) of any file on an
+        immutable, distributed ledger. Later, anyone can verify whether a file has been tampered with by
+        comparing its computed hash against the on-chain record — without relying on any centralized server
+        or authority.
+    </p>
+
+    <h2><span class="num">1.1</span> Problem Statement</h2>
+    <p>
+        Current file integrity verification systems are centralized — a single database stores hash records,
+        making them susceptible to tampering, unauthorized access, and single-point-of-failure risks. There
+        is a need for a decentralized, transparent, and tamper-proof solution that provides publicly
+        verifiable proof of file integrity without requiring trust in a central authority.
+    </p>
+
+    <h2><span class="num">1.2</span> Objectives</h2>
+    <ul>
+        <li>Design and implement a Solidity smart contract to store and verify file hashes on the Ethereum blockchain.</li>
+        <li>Build a web-based frontend that computes file hashes client-side and interacts with the smart contract via MetaMask.</li>
+        <li>Ensure that registered file hashes are immutable and publicly verifiable.</li>
+        <li>Prevent duplicate registration of the same file hash.</li>
+        <li>Provide a user-friendly interface for non-technical users.</li>
+        <li>Deploy and test the system on a local Ganache blockchain.</li>
+    </ul>
+
+    <h2><span class="num">1.3</span> Scope</h2>
+    <p>
+        The system is designed as a proof-of-concept suitable for academic demonstration and local deployment.
+        It supports any file type and size (hashing is performed client-side in the browser). The smart contract
+        is deployed on a local Ganache blockchain but can be deployed to Ethereum testnets (Sepolia, Goerli) or
+        mainnet without code changes.
+    </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 2 — LITERATURE REVIEW
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">2.</span> Literature Review &amp; Background</h1>
+
+    <h2><span class="num">2.1</span> What is Blockchain?</h2>
+    <p>
+        A blockchain is a distributed, decentralized, and immutable digital ledger that records transactions
+        across a network of computers. Each block contains a cryptographic hash of the previous block, a
+        timestamp, and transaction data — forming an unbreakable chain. Key properties include:
+    </p>
+    <ul>
+        <li><strong>Decentralization:</strong> No single entity controls the network; all nodes maintain a copy of the ledger.</li>
+        <li><strong>Immutability:</strong> Once data is written to a block and confirmed, it cannot be altered or deleted.</li>
+        <li><strong>Transparency:</strong> All transactions are publicly visible and auditable by any participant.</li>
+        <li><strong>Consensus:</strong> Network participants agree on the state of the ledger through consensus mechanisms (e.g., Proof of Work, Proof of Stake).</li>
+    </ul>
+
+    <div class="figure">
+        <div class="arch-diagram">
+  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+  │   Block 0   │────▶│   Block 1   │────▶│   Block 2   │────▶│   Block N   │
+  │  (Genesis)  │     │             │     │             │     │             │
+  │             │     │ Prev Hash:  │     │ Prev Hash:  │     │ Prev Hash:  │
+  │ Hash: 0x0a..│     │  0x0a..     │     │  0x3f..     │     │  0xc2..     │
+  │             │     │ Hash: 0x3f..│     │ Hash: 0xc2..│     │ Hash: 0xe1..│
+  │ Transactions│     │ Transactions│     │ Transactions│     │ Transactions│
+  └─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘</div>
+        <div class="figure-caption">Figure 2.1 — Structure of a Blockchain</div>
+    </div>
+
+    <h2><span class="num">2.2</span> Ethereum &amp; Smart Contracts</h2>
+    <p>
+        Ethereum is a decentralized, open-source blockchain platform that supports <strong>smart contracts</strong>
+        — self-executing programs stored on the blockchain that automatically enforce rules and conditions
+        without intermediaries. Unlike Bitcoin, which primarily handles value transfer, Ethereum provides a
+        Turing-complete virtual machine (the <strong>Ethereum Virtual Machine</strong>, or EVM) capable of
+        running arbitrary code.
+    </p>
+    <p>
+        Smart contracts are written in <strong>Solidity</strong>, compiled to EVM bytecode, and deployed to
+        the Ethereum network. Once deployed, a smart contract has its own address, stores persistent state,
+        and exposes functions that users can call by sending transactions.
+    </p>
+
+    <div class="highlight">
+        <strong>Key Concept:</strong> A smart contract is like a vending machine — once deployed, it
+        operates autonomously according to its programmed rules. No one (not even the creator) can alter
+        its code after deployment.
+    </div>
+
+    <h2><span class="num">2.3</span> Cryptographic Hash Functions</h2>
+    <p>
+        A cryptographic hash function is a one-way mathematical function that maps input data of arbitrary
+        size to a fixed-size output (the "hash" or "digest"). SHA-256 (Secure Hash Algorithm 256-bit) is
+        used in this project. Key properties:
+    </p>
+    <table>
+        <caption>Table 2.1 — Properties of Cryptographic Hash Functions</caption>
+        <tr><th>Property</th><th>Description</th></tr>
+        <tr><td>Deterministic</td><td>The same input always produces the same hash output.</td></tr>
+        <tr><td>Fixed Output Size</td><td>SHA-256 always produces a 256-bit (32-byte) hash, regardless of input size.</td></tr>
+        <tr><td>Avalanche Effect</td><td>A tiny change in the input completely changes the output hash.</td></tr>
+        <tr><td>Pre-image Resistance</td><td>Given a hash, it is computationally infeasible to find the original input.</td></tr>
+        <tr><td>Collision Resistance</td><td>It is practically impossible to find two different inputs that produce the same hash.</td></tr>
+    </table>
+
+    <p>
+        Example: The SHA-256 hash of the string <code>"hello world"</code> is:<br/>
+        <code>b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9</code>
+    </p>
+    <p>
+        Changing even one character (e.g., <code>"Hello world"</code>) produces a completely different hash:<br/>
+        <code>64ec88ca00b268e5ba1a35678a1b5316d212f4f366b2477232534a8aeca37f3c</code>
+    </p>
+
+    <h2><span class="num">2.4</span> Existing Solutions</h2>
+    <p>
+        Several centralized services exist for file hash verification (e.g., VirusTotal, HashCalc), but they
+        rely on trusted servers. Blockchain-based solutions like <strong>Proof of Existence</strong> (poex.io)
+        and <strong>Stampery</strong> have demonstrated the concept but often require custom tokens or are
+        no longer maintained. This project provides a simple, self-deployable, open-source alternative.
+    </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 3 — BLOCKCHAIN COMPONENTS USED
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">3.</span> Blockchain Components &amp; Tools Used</h1>
+
+    <h2><span class="num">3.1</span> Solidity</h2>
+    <p>
+        Solidity is a statically-typed, contract-oriented, high-level programming language designed specifically
+        for writing smart contracts on the Ethereum Virtual Machine (EVM). It is influenced by C++, Python,
+        and JavaScript. Version <strong>0.8.19</strong> is used in this project, which includes built-in overflow
+        checks and modern language features.
+    </p>
+    <table>
+        <caption>Table 3.1 — Solidity Key Features Used</caption>
+        <tr><th>Feature</th><th>Usage in This Project</th></tr>
+        <tr><td>Structs</td><td><code>FileRecord</code> struct to store file metadata</td></tr>
+        <tr><td>Mappings</td><td>Hash-to-record and address-to-hashes lookups</td></tr>
+        <tr><td>Events</td><td><code>FileRegistered</code> event for transaction logging</td></tr>
+        <tr><td>Modifiers</td><td><code>hashNotRegistered</code>, <code>hashExists</code> for access control</td></tr>
+        <tr><td>View Functions</td><td>Read-only queries that cost no gas</td></tr>
+    </table>
+
+    <h2><span class="num">3.2</span> Remix IDE</h2>
+    <p>
+        Remix IDE is a browser-based Integrated Development Environment for Solidity smart contract development.
+        It provides a compiler, debugger, static analysis tools, and deployment interface — all without any
+        installation. Available at <code>https://remix.ethereum.org</code>.
+    </p>
+    <ul>
+        <li><strong>Solidity Compiler:</strong> Compiles <code>.sol</code> files to EVM bytecode and ABI.</li>
+        <li><strong>Deploy &amp; Run:</strong> Deploys contracts to JavaScript VM, Injected Web3 (MetaMask), or custom RPC.</li>
+        <li><strong>Debugger:</strong> Step-through transaction execution for troubleshooting.</li>
+        <li><strong>Static Analysis:</strong> Detects common vulnerabilities (reentrancy, gas issues).</li>
+    </ul>
+
+    <h2><span class="num">3.3</span> MetaMask</h2>
+    <p>
+        MetaMask is a cryptocurrency wallet and gateway to blockchain applications, available as a browser
+        extension (Chrome, Firefox, Edge) and mobile app. In this project, MetaMask serves as:
+    </p>
+    <ul>
+        <li><strong>Account Manager:</strong> Manages Ethereum accounts and private keys securely.</li>
+        <li><strong>Transaction Signer:</strong> Signs transactions before broadcasting them to the network.</li>
+        <li><strong>Network Connector:</strong> Connects the frontend to Ganache's local blockchain.</li>
+        <li><strong>Web3 Provider:</strong> Injects the <code>window.ethereum</code> object into the browser, enabling DApp interaction.</li>
+    </ul>
+
+    <h2><span class="num">3.4</span> Ganache</h2>
+    <p>
+        Ganache is a personal Ethereum blockchain used for local development and testing. It simulates the
+        Ethereum network on your machine, providing:
+    </p>
+    <ul>
+        <li><strong>10 pre-funded accounts</strong> with 100 ETH each for testing.</li>
+        <li><strong>Instant mining:</strong> Transactions are mined immediately (no waiting for block confirmations).</li>
+        <li><strong>Visual interface:</strong> Inspect blocks, transactions, contract state, and events.</li>
+        <li><strong>Deterministic:</strong> Same seed produces the same accounts and keys every time.</li>
+        <li><strong>RPC endpoint:</strong> <code>http://127.0.0.1:7545</code> (GUI) or <code>:8545</code> (CLI).</li>
+    </ul>
+
+    <h2><span class="num">3.5</span> Truffle Framework</h2>
+    <p>
+        Truffle is a development framework for Ethereum that provides:
+    </p>
+    <ul>
+        <li><strong>Compilation:</strong> Compiles Solidity contracts and generates ABI + bytecode artifacts.</li>
+        <li><strong>Migration:</strong> Automated deployment scripts to any Ethereum network.</li>
+        <li><strong>Testing:</strong> JavaScript/Solidity test framework with Mocha and Chai.</li>
+        <li><strong>Network management:</strong> Configurable connection to local, testnet, or mainnet networks.</li>
+    </ul>
+
+    <h2><span class="num">3.6</span> Web3.js</h2>
+    <p>
+        Web3.js is a JavaScript library that enables interaction with the Ethereum blockchain from a web browser
+        or Node.js application. It provides APIs for:
+    </p>
+    <ul>
+        <li>Connecting to an Ethereum node (via MetaMask or direct RPC).</li>
+        <li>Sending transactions to smart contracts.</li>
+        <li>Calling read-only (view) functions.</li>
+        <li>Listening to contract events.</li>
+        <li>Managing accounts and signing data.</li>
+    </ul>
+
+    <table>
+        <caption>Table 3.2 — Complete Technology Stack</caption>
+        <tr><th>Layer</th><th>Technology</th><th>Version</th><th>Role</th></tr>
+        <tr><td>Smart Contract</td><td>Solidity</td><td>0.8.19</td><td>Business logic on-chain</td></tr>
+        <tr><td>Blockchain</td><td>Ganache</td><td>7.x</td><td>Local Ethereum simulator</td></tr>
+        <tr><td>Wallet</td><td>MetaMask</td><td>Latest</td><td>Account &amp; transaction management</td></tr>
+        <tr><td>Framework</td><td>Truffle</td><td>5.x</td><td>Compile, deploy, test</td></tr>
+        <tr><td>Frontend</td><td>HTML/CSS/JS</td><td>—</td><td>User interface</td></tr>
+        <tr><td>Blockchain API</td><td>Web3.js</td><td>1.10.x</td><td>Frontend ↔ blockchain bridge</td></tr>
+        <tr><td>Hashing</td><td>Web Crypto API</td><td>—</td><td>Client-side SHA-256 computation</td></tr>
+        <tr><td>IDE</td><td>Remix / VS Code</td><td>—</td><td>Development environment</td></tr>
+    </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 4 — SYSTEM ARCHITECTURE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">4.</span> System Architecture</h1>
+
+    <h2><span class="num">4.1</span> High-Level Architecture</h2>
+    <p>
+        The system follows a three-tier decentralized architecture: the <strong>Presentation Layer</strong>
+        (frontend), the <strong>Blockchain Layer</strong> (smart contract on Ethereum), and the
+        <strong>Network Layer</strong> (Ganache local blockchain + MetaMask wallet).
+    </p>
+
+    <div class="figure">
+        <div class="arch-diagram">
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                        PRESENTATION LAYER                              │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │                    Frontend (index.html)                         │  │
+  │  │  ┌──────────────┐  ┌──────────────┐  ┌───────────────────────┐  │  │
+  │  │  │  File Picker  │  │  SHA-256     │  │  Results Display      │  │  │
+  │  │  │  & Input Form │  │  Hash Engine │  │  (Register / Verify)  │  │  │
+  │  │  └──────────────┘  └──────────────┘  └───────────────────────┘  │  │
+  │  └──────────────────────────┬───────────────────────────────────────┘  │
+  └─────────────────────────────┼──────────────────────────────────────────┘
+                                │  Web3.js API Calls
+                                ▼
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                         WALLET LAYER                                   │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │                      MetaMask Extension                          │  │
+  │  │   • Account Management    • Transaction Signing                  │  │
+  │  │   • Network Selection     • window.ethereum Provider             │  │
+  │  └──────────────────────────┬───────────────────────────────────────┘  │
+  └─────────────────────────────┼──────────────────────────────────────────┘
+                                │  JSON-RPC (HTTP)
+                                ▼
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                       BLOCKCHAIN LAYER                                 │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │              Ganache Local Ethereum Blockchain                    │  │
+  │  │                  (http://127.0.0.1:7545)                         │  │
+  │  │                                                                  │  │
+  │  │  ┌──────────────────────────────────────────────────────────┐    │  │
+  │  │  │         FileHashVerification Smart Contract              │    │  │
+  │  │  │                                                          │    │  │
+  │  │  │  Storage:                                                │    │  │
+  │  │  │    mapping(bytes32 => FileRecord)  fileRecords           │    │  │
+  │  │  │    mapping(address => bytes32[])   userFiles             │    │  │
+  │  │  │    uint256                         totalFiles            │    │  │
+  │  │  │                                                          │    │  │
+  │  │  │  Functions:                                              │    │  │
+  │  │  │    registerFile()  verifyFile()  getFileDetails()        │    │  │
+  │  │  │    getUserFiles()  isFileRegistered()  totalFiles()      │    │  │
+  │  │  └──────────────────────────────────────────────────────────┘    │  │
+  │  └──────────────────────────────────────────────────────────────────┘  │
+  └─────────────────────────────────────────────────────────────────────────┘</div>
+        <div class="figure-caption">Figure 4.1 — High-Level System Architecture</div>
+    </div>
+
+    <h2><span class="num">4.2</span> Data Flow Diagram</h2>
+
+    <h3>4.2.1 — File Registration Flow</h3>
+    <div class="figure">
+        <div class="arch-diagram">
+  User                  Browser                MetaMask              Blockchain
+   │                      │                      │                      │
+   │  1. Select File      │                      │                      │
+   │─────────────────────▶│                      │                      │
+   │                      │                      │                      │
+   │                      │ 2. Compute SHA-256   │                      │
+   │                      │    (Web Crypto API)  │                      │
+   │                      │                      │                      │
+   │  3. Enter Filename   │                      │                      │
+   │─────────────────────▶│                      │                      │
+   │                      │                      │                      │
+   │  4. Click "Register" │                      │                      │
+   │─────────────────────▶│                      │                      │
+   │                      │ 5. Create Tx         │                      │
+   │                      │    (Web3.js)         │                      │
+   │                      │─────────────────────▶│                      │
+   │                      │                      │                      │
+   │                      │                      │ 6. User Confirms Tx  │
+   │                      │                      │    (Signs with key)  │
+   │                      │                      │─────────────────────▶│
+   │                      │                      │                      │
+   │                      │                      │                      │ 7. Execute
+   │                      │                      │                      │    registerFile()
+   │                      │                      │                      │
+   │                      │                      │                      │ 8. Store hash
+   │                      │                      │                      │    in mapping
+   │                      │                      │                      │
+   │                      │                      │  9. Tx Receipt       │
+   │                      │                      │◀─────────────────────│
+   │                      │ 10. Success Response │                      │
+   │                      │◀─────────────────────│                      │
+   │  11. Show Result     │                      │                      │
+   │◀─────────────────────│                      │                      │</div>
+        <div class="figure-caption">Figure 4.2 — Sequence Diagram: File Registration</div>
+    </div>
+
+    <h3>4.2.2 — File Verification Flow</h3>
+    <div class="figure">
+        <div class="arch-diagram">
+  User                  Browser                MetaMask              Blockchain
+   │                      │                      │                      │
+   │  1. Select File      │                      │                      │
+   │─────────────────────▶│                      │                      │
+   │                      │ 2. Compute SHA-256   │                      │
+   │                      │                      │                      │
+   │  3. Click "Verify"   │                      │                      │
+   │─────────────────────▶│                      │                      │
+   │                      │ 4. Call verifyFile() │                      │
+   │                      │    (view — no gas)   │                      │
+   │                      │─────────────────────▶│─────────────────────▶│
+   │                      │                      │                      │
+   │                      │                      │                      │ 5. Read from
+   │                      │                      │                      │    mapping
+   │                      │                      │                      │
+   │                      │  6. Return result    │                      │
+   │                      │◀─────────────────────┼◀─────────────────────│
+   │  7. Display result   │                      │                      │
+   │◀─────────────────────│                      │                      │
+   │  (Verified / Not)    │                      │                      │</div>
+        <div class="figure-caption">Figure 4.3 — Sequence Diagram: File Verification (Read-Only, No Gas)</div>
+    </div>
+
+    <h2><span class="num">4.3</span> Smart Contract Architecture</h2>
+    <div class="figure">
+        <div class="arch-diagram">
+  ┌─────────────────────────────────────────────────────────────┐
+  │               FileHashVerification Contract                 │
+  ├─────────────────────────────────────────────────────────────┤
+  │  STORAGE                                                    │
+  │  ─────────────────────────────────────────────────          │
+  │  fileRecords : mapping(bytes32 => FileRecord)               │
+  │  userFiles   : mapping(address => bytes32[])                │
+  │  totalFiles  : uint256                                      │
+  ├─────────────────────────────────────────────────────────────┤
+  │  STRUCT: FileRecord                                         │
+  │  ─────────────────────────────────────────────────          │
+  │  owner     : address                                        │
+  │  fileName  : string                                         │
+  │  timestamp : uint256                                        │
+  │  exists    : bool                                           │
+  ├─────────────────────────────────────────────────────────────┤
+  │  WRITE FUNCTIONS                                            │
+  │  ─────────────────────────────────────────────────          │
+  │  + registerFile(bytes32 hash, string name)  [Costs Gas]     │
+  ├─────────────────────────────────────────────────────────────┤
+  │  READ FUNCTIONS (View — Free)                               │
+  │  ─────────────────────────────────────────────────          │
+  │  + verifyFile(bytes32 hash) → (bool, addr, string, uint)   │
+  │  + getFileDetails(bytes32 hash) → (addr, string, uint)     │
+  │  + getUserFiles(address user) → bytes32[]                   │
+  │  + isFileRegistered(bytes32 hash) → bool                   │
+  │  + totalFiles() → uint256                                   │
+  ├─────────────────────────────────────────────────────────────┤
+  │  EVENTS                                                     │
+  │  ─────────────────────────────────────────────────          │
+  │  FileRegistered(bytes32 hash, address owner, string, uint)  │
+  ├─────────────────────────────────────────────────────────────┤
+  │  MODIFIERS                                                  │
+  │  ─────────────────────────────────────────────────          │
+  │  hashNotRegistered(bytes32)  — ensures no duplicates        │
+  │  hashExists(bytes32)         — ensures record exists        │
+  └─────────────────────────────────────────────────────────────┘</div>
+        <div class="figure-caption">Figure 4.4 — Smart Contract Class Diagram</div>
+    </div>
+
+    <h2><span class="num">4.4</span> Frontend Architecture</h2>
+    <p>
+        The frontend is a single-page HTML application with three main sections:
+    </p>
+    <ul>
+        <li><strong>Register Section:</strong> File picker → SHA-256 hash computation → blockchain registration.</li>
+        <li><strong>Verify Section:</strong> File picker or manual hash input → blockchain lookup → result display.</li>
+        <li><strong>My Files Section:</strong> Displays all files registered by the connected wallet address.</li>
+    </ul>
+    <p>
+        The frontend uses the <strong>Web Crypto API</strong> (<code>crypto.subtle.digest</code>) for
+        client-side SHA-256 hashing — the file never leaves the user's browser. Communication with the
+        smart contract is handled by <strong>Web3.js</strong> through MetaMask's injected provider.
+    </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 5 — DESIGN & IMPLEMENTATION
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">5.</span> System Design &amp; Implementation</h1>
+
+    <h2><span class="num">5.1</span> Smart Contract Design</h2>
+    <p>
+        The smart contract follows a clean, modular design with separation between storage, logic, and
+        access control. The contract is intentionally kept simple and gas-efficient.
+    </p>
+
+    <h2><span class="num">5.2</span> Data Structures</h2>
+
+    <h3>FileRecord Struct</h3>
+    <pre>struct FileRecord {
+    address owner;       // The address that registered the hash
+    string  fileName;    // Human-readable filename
+    uint256 timestamp;   // Block timestamp when the hash was stored
+    bool    exists;      // Guard flag for existence checks
+}</pre>
+
+    <h3>State Variables</h3>
+    <pre>mapping(bytes32 => FileRecord) private fileRecords;   // Hash → Record
+mapping(address => bytes32[])  private userFiles;      // Address → Hashes[]
+uint256 public totalFiles;                              // Counter</pre>
+
+    <p>
+        Using <code>bytes32</code> for the file hash is optimal because SHA-256 produces exactly 256 bits
+        (32 bytes), which maps directly to Solidity's <code>bytes32</code> type — the most gas-efficient
+        way to store a hash on-chain.
+    </p>
+
+    <h2><span class="num">5.3</span> Contract Functions</h2>
+
+    <table>
+        <caption>Table 5.1 — Smart Contract Functions</caption>
+        <tr><th>Function</th><th>Type</th><th>Parameters</th><th>Returns</th><th>Gas</th><th>Description</th></tr>
+        <tr>
+            <td><code>registerFile</code></td>
+            <td>Write</td>
+            <td><code>bytes32 _fileHash</code>, <code>string _fileName</code></td>
+            <td>—</td>
+            <td>~65,000</td>
+            <td>Stores a new file hash with metadata. Reverts if hash already exists, is zero, or filename is empty.</td>
+        </tr>
+        <tr>
+            <td><code>verifyFile</code></td>
+            <td>View</td>
+            <td><code>bytes32 _fileHash</code></td>
+            <td><code>bool, address, string, uint256</code></td>
+            <td>Free</td>
+            <td>Returns registration status and details for any hash.</td>
+        </tr>
+        <tr>
+            <td><code>getFileDetails</code></td>
+            <td>View</td>
+            <td><code>bytes32 _fileHash</code></td>
+            <td><code>address, string, uint256</code></td>
+            <td>Free</td>
+            <td>Returns details for a registered hash. Reverts if not found.</td>
+        </tr>
+        <tr>
+            <td><code>getUserFiles</code></td>
+            <td>View</td>
+            <td><code>address _user</code></td>
+            <td><code>bytes32[]</code></td>
+            <td>Free</td>
+            <td>Returns all hashes registered by a given address.</td>
+        </tr>
+        <tr>
+            <td><code>isFileRegistered</code></td>
+            <td>View</td>
+            <td><code>bytes32 _fileHash</code></td>
+            <td><code>bool</code></td>
+            <td>Free</td>
+            <td>Simple boolean existence check.</td>
+        </tr>
+        <tr>
+            <td><code>totalFiles</code></td>
+            <td>View</td>
+            <td>—</td>
+            <td><code>uint256</code></td>
+            <td>Free</td>
+            <td>Total number of files registered on the contract.</td>
+        </tr>
+    </table>
+
+    <h2><span class="num">5.4</span> Events &amp; Modifiers</h2>
+
+    <h3>Events</h3>
+    <pre>event FileRegistered(
+    bytes32 indexed fileHash,    // Indexed for efficient filtering
+    address indexed owner,       // Indexed for per-user queries
+    string  fileName,
+    uint256 timestamp
+);</pre>
+    <p>
+        Events are emitted during write operations and stored in transaction logs. They are <em>not</em>
+        stored in contract storage (saving gas) but can be queried by off-chain applications. The
+        <code>indexed</code> keyword enables efficient filtering by hash or owner address.
+    </p>
+
+    <h3>Modifiers</h3>
+    <pre>modifier hashNotRegistered(bytes32 _fileHash) {
+    require(!fileRecords[_fileHash].exists, "File hash already registered");
+    _;
+}
+
+modifier hashExists(bytes32 _fileHash) {
+    require(fileRecords[_fileHash].exists, "File hash not found");
+    _;
+}</pre>
+
+    <h2><span class="num">5.5</span> Frontend Implementation</h2>
+    <p>
+        The frontend is a single <code>index.html</code> file with embedded CSS and JavaScript. Key
+        implementation details:
+    </p>
+
+    <h3>Client-Side File Hashing</h3>
+    <pre>async function hashSelectedFile(inputId, displayId) {
+    const file   = fileInput.files[0];
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+    const hashArray  = Array.from(new Uint8Array(hashBuffer));
+    const hashHex    = "0x" + hashArray
+        .map(b => b.toString(16).padStart(2, "0")).join("");
+}</pre>
+    <p>
+        The <code>crypto.subtle.digest</code> API is a native browser API that computes SHA-256 hashes
+        entirely on the client side. The file data never leaves the user's machine — only the 32-byte
+        hash is sent to the blockchain.
+    </p>
+
+    <h3>MetaMask Connection</h3>
+    <pre>async function connectWallet() {
+    const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+    });
+    currentAccount = accounts[0];
+    web3 = new Web3(window.ethereum);
+    contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+}</pre>
+
+    <h3>Blockchain Interaction</h3>
+    <pre>// WRITE — costs gas, requires MetaMask confirmation
+await contract.methods.registerFile(hashHex, fileName)
+    .send({ from: currentAccount });
+
+// READ — free, no gas, no confirmation needed
+const result = await contract.methods.verifyFile(hashHex).call();</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 6 — WORKING OF THE SYSTEM
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">6.</span> Working of the System</h1>
+
+    <h2><span class="num">6.1</span> File Registration Flow</h2>
+    <ol>
+        <li>The user opens the frontend and clicks <strong>"Connect MetaMask"</strong> to link their Ethereum wallet.</li>
+        <li>The user selects a file using the file picker in the <strong>Register</strong> section.</li>
+        <li>The browser reads the file and computes its <strong>SHA-256 hash</strong> using the Web Crypto API. The file never leaves the user's machine.</li>
+        <li>The computed hash (32 bytes, displayed as a <code>0x</code>-prefixed hex string) is shown on screen.</li>
+        <li>The user enters a filename (auto-filled from the file name) and clicks <strong>"Register on Blockchain"</strong>.</li>
+        <li>Web3.js constructs a transaction calling <code>registerFile(hash, fileName)</code> and sends it to MetaMask.</li>
+        <li>MetaMask shows a confirmation popup displaying the gas cost. The user clicks <strong>"Confirm"</strong>.</li>
+        <li>The signed transaction is sent to Ganache, which mines it instantly.</li>
+        <li>The smart contract executes:
+            <ul>
+                <li>Validates that the hash is not zero and the filename is not empty.</li>
+                <li>Checks that the hash is not already registered (prevents duplicates).</li>
+                <li>Creates a <code>FileRecord</code> in the <code>fileRecords</code> mapping.</li>
+                <li>Appends the hash to the user's <code>userFiles</code> array.</li>
+                <li>Increments <code>totalFiles</code>.</li>
+                <li>Emits the <code>FileRegistered</code> event.</li>
+            </ul>
+        </li>
+        <li>The transaction receipt is returned to the frontend, which displays the transaction hash and block number.</li>
+    </ol>
+
+    <h2><span class="num">6.2</span> File Verification Flow</h2>
+    <ol>
+        <li>The user selects a file in the <strong>Verify</strong> section (or pastes a hash manually).</li>
+        <li>The browser computes the SHA-256 hash of the selected file.</li>
+        <li>The user clicks <strong>"Verify"</strong>.</li>
+        <li>Web3.js calls the <code>verifyFile(hash)</code> function — this is a <strong>view</strong> function, so it costs <strong>no gas</strong> and requires <strong>no MetaMask confirmation</strong>.</li>
+        <li>The smart contract looks up the hash in the <code>fileRecords</code> mapping and returns:
+            <ul>
+                <li><code>isRegistered</code> — whether the hash exists on-chain.</li>
+                <li><code>owner</code> — the address that registered it.</li>
+                <li><code>fileName</code> — the stored filename.</li>
+                <li><code>timestamp</code> — when it was registered.</li>
+            </ul>
+        </li>
+        <li>The frontend displays the result:
+            <ul>
+                <li><strong>✅ Verified:</strong> Shows owner address, filename, and registration date.</li>
+                <li><strong>❌ Not Found:</strong> Indicates the file hash was never registered.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2><span class="num">6.3</span> Transaction Lifecycle</h2>
+    <div class="figure">
+        <div class="arch-diagram">
+  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+  │  Create  │───▶│   Sign   │───▶│ Broadcast│───▶│   Mine   │───▶│ Confirm  │
+  │    Tx    │    │ (MetaMask│    │(Send to  │    │ (Ganache │    │ (Receipt │
+  │          │    │  wallet) │    │ network) │    │  instant)│    │ returned)│
+  └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘
+
+  Web3.js         User clicks     JSON-RPC to     Tx included     Tx hash +
+  constructs      "Confirm" in    Ganache node    in next block   block number
+  the tx object   MetaMask popup  at port 7545    (mined)         sent to app</div>
+        <div class="figure-caption">Figure 6.1 — Transaction Lifecycle</div>
+    </div>
+
+    <div class="note">
+        <strong>Note on Gas:</strong> Write operations (registerFile) consume gas because they modify
+        blockchain state. Read operations (verifyFile, getFileDetails) are free because they only read
+        existing data without modifying state.
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 7 — TESTING
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">7.</span> Testing</h1>
+
+    <p>The project includes 7 automated test cases written in JavaScript using the Truffle testing framework (Mocha + Chai).</p>
+
+    <table>
+        <caption>Table 7.1 — Test Cases &amp; Expected Results</caption>
+        <tr><th>#</th><th>Test Case</th><th>Input</th><th>Expected Result</th><th>Status</th></tr>
+        <tr>
+            <td>1</td>
+            <td>Register a valid file hash</td>
+            <td>Valid hash + filename</td>
+            <td>Transaction succeeds; event emitted; totalFiles = 1</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Reject duplicate hash registration</td>
+            <td>Same hash registered twice</td>
+            <td>Second transaction reverts with "File hash already registered"</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Verify a registered file hash</td>
+            <td>Previously registered hash</td>
+            <td>Returns isRegistered=true, correct owner, filename, timestamp</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Verify an unregistered hash</td>
+            <td>Random hash not on-chain</td>
+            <td>Returns isRegistered=false</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Get user's registered files</td>
+            <td>Owner address</td>
+            <td>Returns array with 1 hash</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Reject empty filename</td>
+            <td>Valid hash + empty string</td>
+            <td>Reverts with "File name cannot be empty"</td>
+            <td>✅ Pass</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Reject zero hash</td>
+            <td>0x000…000 + valid name</td>
+            <td>Reverts with "Invalid file hash"</td>
+            <td>✅ Pass</td>
+        </tr>
+    </table>
+
+    <h3>Running Tests</h3>
+    <pre>npx truffle test</pre>
+    <pre>  Contract: FileHashVerification
+    ✓ should register a file hash (120ms)
+    ✓ should NOT allow duplicate registration (85ms)
+    ✓ should verify a registered file (62ms)
+    ✓ should return false for unregistered hash (45ms)
+    ✓ should return user files list (90ms)
+    ✓ should reject empty file name (78ms)
+    ✓ should reject zero hash (65ms)
+
+  7 passing (580ms)</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 8 — SECURITY ANALYSIS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">8.</span> Security Analysis</h1>
+
+    <table>
+        <caption>Table 8.1 — Security Measures</caption>
+        <tr><th>Threat</th><th>Mitigation</th></tr>
+        <tr>
+            <td><strong>Hash Tampering</strong></td>
+            <td>Once stored on the blockchain, file hashes are immutable. No one — not even the contract deployer — can modify or delete a registered hash.</td>
+        </tr>
+        <tr>
+            <td><strong>Duplicate Registration</strong></td>
+            <td>The <code>hashNotRegistered</code> modifier prevents the same hash from being registered twice, ensuring first-registrant ownership.</td>
+        </tr>
+        <tr>
+            <td><strong>Reentrancy Attack</strong></td>
+            <td>The contract does not make external calls or transfer ETH, so reentrancy is not applicable.</td>
+        </tr>
+        <tr>
+            <td><strong>Integer Overflow</strong></td>
+            <td>Solidity 0.8.x includes built-in overflow/underflow checks. The <code>totalFiles</code> counter is safe.</td>
+        </tr>
+        <tr>
+            <td><strong>Input Validation</strong></td>
+            <td>Zero hashes and empty filenames are rejected with explicit <code>require</code> statements.</td>
+        </tr>
+        <tr>
+            <td><strong>Private Key Security</strong></td>
+            <td>Private keys are managed by MetaMask and never exposed to the frontend application.</td>
+        </tr>
+        <tr>
+            <td><strong>File Privacy</strong></td>
+            <td>Files are hashed client-side in the browser. The actual file data is never uploaded or transmitted — only the 32-byte hash goes on-chain.</td>
+        </tr>
+        <tr>
+            <td><strong>Front-Running</strong></td>
+            <td>On a public network, miners could theoretically front-run a registration. On Ganache (local), this is not a concern. A commit-reveal scheme could mitigate this on mainnet.</td>
+        </tr>
+    </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 9 — GAS COST ANALYSIS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">9.</span> Gas Cost Analysis</h1>
+
+    <p>
+        Gas is the unit of computational effort required to execute operations on Ethereum.
+        Each operation has a fixed gas cost. Users pay gas fees (in ETH) to incentivize miners/validators.
+    </p>
+
+    <table>
+        <caption>Table 9.1 — Gas Costs by Operation</caption>
+        <tr><th>Operation</th><th>Type</th><th>Estimated Gas</th><th>Cost on Ganache</th></tr>
+        <tr><td>Contract Deployment</td><td>Deploy</td><td>~800,000</td><td>Free (test ETH)</td></tr>
+        <tr><td><code>registerFile()</code></td><td>Write</td><td>~65,000 – 90,000</td><td>Free (test ETH)</td></tr>
+        <tr><td><code>verifyFile()</code></td><td>View (Read)</td><td>0</td><td>Free</td></tr>
+        <tr><td><code>getFileDetails()</code></td><td>View (Read)</td><td>0</td><td>Free</td></tr>
+        <tr><td><code>getUserFiles()</code></td><td>View (Read)</td><td>0</td><td>Free</td></tr>
+        <tr><td><code>isFileRegistered()</code></td><td>View (Read)</td><td>0</td><td>Free</td></tr>
+    </table>
+
+    <div class="highlight">
+        <strong>Gas Optimization:</strong> Using <code>bytes32</code> instead of <code>string</code> for
+        the file hash saves significant gas. Storing a 32-byte value in a mapping slot costs exactly
+        20,000 gas (SSTORE), whereas storing a dynamic string would cost much more.
+    </div>
+
+    <p>
+        On Ethereum mainnet at a gas price of 20 Gwei, registering a file would cost approximately:
+    </p>
+    <pre>Cost = 65,000 gas × 20 Gwei = 1,300,000 Gwei = 0.0013 ETH ≈ $2–5 USD</pre>
+    <p>On Ganache, all transactions use test ETH, so there is no real cost.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 10 — ADVANTAGES & LIMITATIONS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">10.</span> Advantages &amp; Limitations</h1>
+
+    <h2><span class="num">10.1</span> Advantages</h2>
+    <ul>
+        <li><strong>Tamper-Proof:</strong> Once registered, a file hash cannot be altered or deleted by anyone, including the contract owner.</li>
+        <li><strong>Decentralized:</strong> No central authority or server is needed. The Ethereum network ensures availability and redundancy.</li>
+        <li><strong>Transparent:</strong> All registered hashes and their metadata are publicly auditable on the blockchain.</li>
+        <li><strong>Privacy-Preserving:</strong> Only the hash is stored on-chain — the actual file content remains private with the user.</li>
+        <li><strong>Low Cost:</strong> Storing a 32-byte hash is one of the cheapest on-chain operations.</li>
+        <li><strong>Universal Verification:</strong> Anyone can verify a file's integrity without needing permission from the original uploader.</li>
+        <li><strong>Timestamped:</strong> Block timestamps provide a verifiable record of when a file was registered.</li>
+        <li><strong>No File Size Limits:</strong> Since only the hash is stored, files of any size can be registered.</li>
+    </ul>
+
+    <h2><span class="num">10.2</span> Limitations</h2>
+    <ul>
+        <li><strong>Not a Proof of Authorship:</strong> Registering a hash does not prove the uploader created the file — only that they registered it first.</li>
+        <li><strong>No File Storage:</strong> The system only stores hashes, not the actual files. Users must retain their own copies.</li>
+        <li><strong>Gas Costs on Mainnet:</strong> Each registration transaction requires gas fees, which vary with network congestion.</li>
+        <li><strong>Irreversibility:</strong> Once registered, a hash cannot be removed — this could be a concern for accidental registrations.</li>
+        <li><strong>Scalability:</strong> On-chain storage is expensive. For high-volume use cases, a Layer 2 solution would be more practical.</li>
+        <li><strong>Network Dependency:</strong> The system requires an Ethereum node (or Ganache) to be running.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 11 — FUTURE ENHANCEMENTS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">11.</span> Future Enhancements</h1>
+
+    <ol>
+        <li><strong>IPFS Integration:</strong> Store the actual file on IPFS (InterPlanetary File System) and register the IPFS CID on-chain, combining decentralized storage with on-chain verification.</li>
+        <li><strong>Ownership Transfer:</strong> Allow the original registrant to transfer file ownership to another address.</li>
+        <li><strong>File Revocation:</strong> Add the ability to mark a file registration as "revoked" (without deleting the original record).</li>
+        <li><strong>Multi-Signature Registration:</strong> Require multiple parties to approve a file registration for collaborative workflows.</li>
+        <li><strong>Layer 2 Deployment:</strong> Deploy on Polygon, Arbitrum, or Optimism for lower gas fees and faster confirmation times.</li>
+        <li><strong>Access Control:</strong> Implement role-based access (admin, verifier, registrant) using OpenZeppelin's AccessControl library.</li>
+        <li><strong>Batch Registration:</strong> Support registering multiple file hashes in a single transaction to reduce gas costs.</li>
+        <li><strong>ENS Integration:</strong> Display human-readable names (e.g., "alice.eth") instead of raw Ethereum addresses.</li>
+        <li><strong>Email/Webhook Notifications:</strong> Notify users when their file's hash is verified by someone.</li>
+        <li><strong>Mobile App:</strong> Build a React Native or Flutter mobile application for on-the-go file verification.</li>
+    </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 12 — CONCLUSION
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">12.</span> Conclusion</h1>
+
+    <p>
+        The <strong>Decentralized File Hash Verification System</strong> successfully demonstrates how
+        blockchain technology can be applied to solve real-world problems of file integrity and authenticity
+        verification. By leveraging Ethereum smart contracts, the system provides:
+    </p>
+    <ul>
+        <li>An <strong>immutable, tamper-proof</strong> record of file hashes on a decentralized ledger.</li>
+        <li>A <strong>transparent verification mechanism</strong> that anyone can use without trusting a central authority.</li>
+        <li>A <strong>privacy-preserving design</strong> where file contents never leave the user's device.</li>
+        <li>A <strong>gas-efficient implementation</strong> using optimized data types and Solidity best practices.</li>
+    </ul>
+    <p>
+        The project was developed using industry-standard tools — Solidity, Truffle, Ganache, MetaMask,
+        and Web3.js — providing hands-on experience with the complete Ethereum development workflow: writing
+        smart contracts, deploying to a blockchain, running automated tests, and building a Web3 frontend.
+    </p>
+    <p>
+        While currently deployed on a local Ganache blockchain for development and testing purposes, the
+        system is fully compatible with Ethereum testnets and mainnet, making it a viable foundation for
+        production-grade file verification applications.
+    </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 13 — REFERENCES
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+    <h1 class="chapter-title"><span class="num">13.</span> References</h1>
+
+    <ol>
+        <li>Ethereum Foundation. "Ethereum Whitepaper." <em>ethereum.org</em>, 2014. <br/>
+            <code>https://ethereum.org/en/whitepaper/</code></li>
+        <li>Solidity Documentation. "Solidity v0.8.19." <em>soliditylang.org</em>. <br/>
+            <code>https://docs.soliditylang.org/en/v0.8.19/</code></li>
+        <li>Truffle Suite. "Truffle Documentation." <em>trufflesuite.com</em>. <br/>
+            <code>https://trufflesuite.com/docs/truffle/</code></li>
+        <li>MetaMask. "MetaMask Documentation." <em>docs.metamask.io</em>. <br/>
+            <code>https://docs.metamask.io/</code></li>
+        <li>Web3.js Documentation. "web3.js - Ethereum JavaScript API." <br/>
+            <code>https://web3js.readthedocs.io/</code></li>
+        <li>Ganache. "Ganache | Truffle Suite." <em>trufflesuite.com</em>. <br/>
+            <code>https://trufflesuite.com/ganache/</code></li>
+        <li>Nakamoto, S. "Bitcoin: A Peer-to-Peer Electronic Cash System." 2008. <br/>
+            <code>https://bitcoin.org/bitcoin.pdf</code></li>
+        <li>Buterin, V. "A Next-Generation Smart Contract and Decentralized Application Platform." 2014.</li>
+        <li>NIST. "Secure Hash Standard (SHS)." FIPS PUB 180-4, August 2015. <br/>
+            <code>https://csrc.nist.gov/publications/detail/fips/180/4/final</code></li>
+        <li>OpenZeppelin. "OpenZeppelin Contracts Documentation." <br/>
+            <code>https://docs.openzeppelin.com/contracts/</code></li>
+    </ol>
+
+    <div class="page-footer">
+        Decentralized File Hash Verification System — Project Report — 2026
+    </div>
+</div>
+
+</body>
+</html>

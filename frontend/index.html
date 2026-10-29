@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a1014" />
+  <title>Verity — File Integrity on Ethereum</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+    :root{color-scheme:dark;--bg:#0a1014;--surface:#10191e;--surface2:#142127;--line:#22343b;--text:#edf5f3;--muted:#8fa3a6;--mint:#7af0c2;--mint2:#39c99a;--blue:#7ebcff;--red:#ff858c;--amber:#ffd18a;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Space Grotesk',sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 80% -10%,#163b36 0,transparent 38%),radial-gradient(ellipse at 0 50%,#13252d 0,transparent 42%),var(--bg);color:var(--text);font-family:var(--sans)}button,input{font:inherit}button{cursor:pointer}a{color:var(--mint);text-decoration:none}.shell{max-width:1180px;margin:auto;padding:0 30px 70px}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}.brand{display:flex;align-items:center;gap:12px;font:700 21px var(--display);letter-spacing:-.6px}.brand-mark{width:36px;height:36px;border:1px solid #7af0c255;background:#7af0c20c;border-radius:11px;display:grid;place-items:center;color:var(--mint);font-size:19px}.brand small{display:block;color:var(--muted);font:400 11px var(--mono);letter-spacing:1px;margin-top:2px}.top-actions{display:flex;align-items:center;gap:12px}.chain-chip,.wallet-chip{border:1px solid var(--line);background:#0d171b;border-radius:999px;padding:9px 13px;color:var(--muted);font:12px var(--mono);display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;background:var(--mint2);border-radius:50%;box-shadow:0 0 12px #39c99a88}.wallet-chip{color:var(--text)}.wallet-chip.connected{border-color:#7af0c244}.connect-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;transition:.18s}.connect-btn,.primary{background:var(--mint);color:#082018}.connect-btn:hover,.primary:hover{background:#9af6d2;transform:translateY(-1px)}.secondary{background:#17282e;border:1px solid var(--line);color:var(--text)}.secondary:hover{border-color:#557078}.hero{padding:55px 0 30px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.eyebrow{color:var(--mint);font:11px var(--mono);letter-spacing:2px;text-transform:uppercase}.hero h1{font:600 clamp(32px,5vw,53px)/1.08 var(--display);letter-spacing:-2px;margin:13px 0 12px;max-width:720px}.hero h1 span{color:var(--mint)}.hero p{color:var(--muted);font-size:15px;margin:0;max-width:540px;line-height:1.7}.network-card{min-width:185px;border:1px solid var(--line);border-radius:13px;background:#10191ecc;padding:14px 16px}.network-card label,.stat label{display:block;color:var(--muted);font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase}.network-card strong{display:block;font:500 13px var(--mono);margin-top:9px}.network-card small{color:var(--mint);font:11px var(--mono)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:22px 0 28px}.stat{border:1px solid var(--line);background:linear-gradient(145deg,#142127,#0e171b);border-radius:13px;padding:17px 19px;min-height:98px}.stat-value{font:600 26px var(--display);letter-spacing:-.5px;margin-top:12px}.stat-value.loading{color:#70888d}.section-head{display:flex;align-items:center;justify-content:space-between;margin:35px 0 15px}.section-head h2{font:600 18px var(--display);margin:0}.section-head p{color:var(--muted);font-size:12px;margin:5px 0 0}.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:linear-gradient(145deg,#111d22eF,#0e171b);border:1px solid var(--line);border-radius:15px;padding:22px}.panel-title{display:flex;align-items:center;gap:11px;margin-bottom:20px}.icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#7af0c214;color:var(--mint);font-size:17px}.icon.blue{background:#7ebcff14;color:var(--blue)}.panel-title h3{font:600 16px var(--display);margin:0}.panel-title p{font-size:12px;color:var(--muted);margin:3px 0 0}.field-label{display:block;font-size:12px;color:#c3d0cf;margin:15px 0 7px}.dropzone{border:1px dashed #36504f;border-radius:11px;padding:20px;text-align:center;background:#0d171b;transition:.2s;position:relative}.dropzone.drag{border-color:var(--mint);background:#7af0c20d}.dropzone input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.drop-icon{color:var(--mint);font-size:21px}.drop-copy{font-size:13px;margin-top:7px}.drop-copy span{color:var(--mint)}.file-meta{font:11px var(--mono);color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.hash-box{font:11px/1.6 var(--mono);color:#a9dccc;background:#0a1215;border:1px solid #1d3034;border-radius:8px;padding:10px 11px;min-height:40px;overflow-wrap:anywhere}.hash-box.empty{color:#687c80}.input{width:100%;border:1px solid #263a40;border-radius:8px;padding:11px 12px;background:#0b1418;color:var(--text);outline:none;font-size:13px}.input:focus{border-color:#54bfa0;box-shadow:0 0 0 3px #7af0c212}.action-row{display:flex;gap:9px;align-items:center;margin-top:17px}.action-row button{width:100%}.btn-note{font-size:11px;color:var(--muted);margin-top:10px;min-height:15px}.result{display:none;margin-top:14px;border:1px solid var(--line);border-radius:9px;padding:13px;font-size:12px;line-height:1.6;overflow-wrap:anywhere}.result.show{display:block}.result.success{border-color:#39c99a55;background:#39c99a0d}.result.fail{border-color:#ff858c55;background:#ff858c0d}.result.info{border-color:#7ebcff55;background:#7ebcff0d}.result strong{color:var(--text)}.result code{font:11px var(--mono);color:#b4d6d0}.table-tools{display:flex;gap:10px;align-items:center}.search{width:220px}.files-panel{padding:0;overflow:hidden}.files-toolbar{display:flex;justify-content:space-between;align-items:center;padding:17px 20px;border-bottom:1px solid var(--line)}.files-toolbar h3{font:600 15px var(--display);margin:0}.files-toolbar p{font-size:11px;color:var(--muted);margin:5px 0 0}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:620px}th{text-align:left;color:#82999c;font:10px var(--mono);text-transform:uppercase;letter-spacing:1px;padding:12px 18px;background:#0c1519}td{padding:14px 18px;border-top:1px solid #ffffff0b;font-size:12px;color:#c9d6d4}td.hash{font:10px var(--mono);color:#8eaaa8}.file-name{font-weight:600;color:var(--text)}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #39c99a33;background:#39c99a0d;color:var(--mint);font:10px var(--mono);padding:4px 7px;border-radius:999px}.empty-state{text-align:center;color:var(--muted);padding:34px 15px;font-size:13px}.empty-state b{display:block;color:#c6d5d3;font:500 14px var(--display);margin-bottom:6px}.table-footer{display:flex;justify-content:space-between;padding:11px 18px;border-top:1px solid #ffffff0b;color:var(--muted);font:10px var(--mono)}.refresh{padding:7px 10px;font-size:11px}.footer{display:flex;justify-content:space-between;color:#6f8387;font:10px var(--mono);padding:25px 3px}.toast{position:fixed;right:22px;bottom:22px;background:#16252a;border:1px solid #31474d;border-radius:10px;padding:13px 16px;max-width:360px;font-size:13px;box-shadow:0 12px 40px #0008;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:5}.toast.visible{opacity:1;transform:translateY(0)}.toast.success{border-color:#39c99a77}.toast.error{border-color:#ff858c77}.spinner{display:inline-block;width:13px;height:13px;border:2px solid #ffffff40;border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes spin{to{transform:rotate(360deg)}}.skeleton{animation:pulse 1.3s infinite alternate}@keyframes pulse{to{opacity:.4}}button:disabled{opacity:.55;cursor:wait;transform:none!important}@media(max-width:760px){.shell{padding:0 18px 40px}.topbar{height:70px}.chain-chip{display:none}.hero{padding-top:39px;display:block}.network-card{margin-top:22px}.stats{gap:8px}.stat{padding:13px}.stat-value{font-size:21px}.work-grid{grid-template-columns:1fr}.files-toolbar{align-items:flex-start;gap:12px;flex-direction:column}.table-tools{width:100%}.search{width:100%}.footer{gap:10px;flex-direction:column}}@media(max-width:430px){.shell{padding-left:13px;padding-right:13px}.brand{font-size:18px}.wallet-chip{display:none}.connect-btn{padding:10px 12px;font-size:12px}.stats{grid-template-columns:1fr}.stat{min-height:74px;display:flex;align-items:center;justify-content:space-between}.stat-value{margin:0}.panel{padding:17px}.hero h1{letter-spacing:-1px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">⌁</div><div>verity<small>FILE INTEGRITY NETWORK</small></div></div>
+      <div class="top-actions"><div class="chain-chip"><span class="dot"></span><span id="chainLabel">Wallet disconnected</span></div><div class="wallet-chip" id="walletChip">No wallet</div><button class="secondary" id="disconnectBtn" type="button" hidden>Disconnect</button><button class="connect-btn" id="connectBtn" type="button">Connect wallet ↗</button></div>
+    </header>
+    <section class="hero"><div><div class="eyebrow">On-chain proof · SHA-256</div><h1>Your files. <span>Verified.</span><br>For good.</h1><p>Anchor a file's fingerprint to Ethereum, then prove it hasn't changed — without ever uploading the file itself.</p></div><div class="network-card"><label>Network status</label><strong id="networkName">Waiting for wallet</strong><small id="blockNumber">—</small></div></section>
+    <section class="stats" aria-label="Network statistics"><div class="stat"><label>Files anchored</label><div class="stat-value loading" id="totalFiles">—</div></div><div class="stat"><label>Your files</label><div class="stat-value loading" id="userFilesCount">—</div></div><div class="stat"><label>Latest block</label><div class="stat-value loading" id="latestBlock">—</div></div></section>
+    <div class="section-head"><div><h2>Workspace</h2><p>Register a new fingerprint or check a file against the chain.</p></div></div>
+    <section class="work-grid">
+      <article class="panel">
+        <div class="panel-title"><div class="icon">↗</div><div><h3>Anchor a file</h3><p>Store its SHA-256 fingerprint on-chain</p></div></div>
+        <label class="field-label" for="regFile">Select a file</label>
+        <div class="dropzone" id="regDrop"><input id="regFile" type="file" aria-label="Choose file to register"><div class="drop-icon">⇧</div><div class="drop-copy" id="regFileCopy">Drop a file here or <span>browse</span></div><div class="file-meta" id="regFileMeta">Your file stays on this device</div></div>
+        <div class="field-label">SHA-256 fingerprint</div><div class="hash-box empty" id="regHashDisplay">Choose a file to calculate its fingerprint</div>
+        <label class="field-label" for="regFileName">Display name</label><input class="input" id="regFileName" type="text" maxlength="120" placeholder="e.g. quarterly-report.pdf">
+        <div class="action-row"><button class="primary" id="registerBtn" type="button">Anchor on blockchain</button></div><div class="btn-note" id="regNote">A wallet confirmation is required for the transaction.</div><div class="result" id="regResult" role="status"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-title"><div class="icon blue">⌕</div><div><h3>Verify a file</h3><p>Check whether its fingerprint is registered</p></div></div>
+        <label class="field-label" for="verFile">Choose a file to verify</label>
+        <div class="dropzone" id="verDrop"><input id="verFile" type="file" aria-label="Choose file to verify"><div class="drop-icon">⌕</div><div class="drop-copy" id="verFileCopy">Drop a file here or <span>browse</span></div><div class="file-meta" id="verFileMeta">Only the fingerprint is checked</div></div>
+        <div class="field-label">SHA-256 fingerprint</div><div class="hash-box empty" id="verHashDisplay">Choose a file or enter a fingerprint below</div>
+        <label class="field-label" for="manualHash">Or paste a fingerprint (leave file unselected)</label><input class="input" id="manualHash" type="text" placeholder="0x followed by 64 hex characters" spellcheck="false" autocomplete="off">
+        <div class="action-row"><button class="secondary" id="verifyBtn" type="button">Verify fingerprint</button></div><div class="btn-note">Verification is a read-only query and does not cost gas.</div><div class="result" id="verResult" role="status"></div>
+      </article>
+    </section>
+    <div class="section-head"><div><h2>Your file registry</h2><p id="registrySubtitle">Connect your wallet to view files you've anchored.</p></div></div>
+    <section class="panel files-panel">
+      <div class="files-toolbar"><div><h3>Registered files</h3><p id="registryCount">Waiting for wallet connection</p></div><div class="table-tools"><input class="input search" id="fileSearch" type="search" placeholder="Search name or hash…" aria-label="Search registered files"><button class="secondary refresh" id="refreshBtn" type="button">↻ Refresh</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>File</th><th>Fingerprint</th><th>Anchored</th><th>Status</th></tr></thead><tbody id="filesBody"><tr><td colspan="4"><div class="empty-state"><b>Your registry is ready when you are</b>Connect your wallet to load your on-chain files.</div></td></tr></tbody></table></div>
+      <div class="table-footer"><span id="tableFooter">Ethereum smart contract</span><span id="lastUpdated">Live data</span></div>
+    </section>
+    <footer class="footer"><span>VERITY · DECENTRALIZED FILE INTEGRITY</span><span>SHA-256 · Ethereum</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./contract-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
+  <script>
+    const CONTRACT_ABI = [
+      {"anonymous":false,"inputs":[{"indexed":true,"name":"fileHash","type":"bytes32"},{"indexed":true,"name":"owner","type":"address"},{"indexed":false,"name":"fileName","type":"string"},{"indexed":false,"name":"timestamp","type":"uint256"}],"name":"FileRegistered","type":"event"},
+      {"inputs":[{"name":"_fileHash","type":"bytes32"},{"name":"_fileName","type":"string"}],"name":"registerFile","outputs":[],"stateMutability":"nonpayable","type":"function"},
+      {"inputs":[{"name":"_fileHash","type":"bytes32"}],"name":"verifyFile","outputs":[{"name":"isRegistered","type":"bool"},{"name":"owner","type":"address"},{"name":"fileName","type":"string"},{"name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},
+      {"inputs":[{"name":"_fileHash","type":"bytes32"}],"name":"getFileDetails","outputs":[{"name":"owner","type":"address"},{"name":"fileName","type":"string"},{"name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},
+      {"inputs":[{"name":"_user","type":"address"}],"name":"getUserFiles","outputs":[{"name":"","type":"bytes32[]"}],"stateMutability":"view","type":"function"},
+      {"inputs":[{"name":"_fileHash","type":"bytes32"}],"name":"isFileRegistered","outputs":[{"name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+      {"inputs":[],"name":"totalFiles","outputs":[{"name":"","type":"uint256"}],"stateMutability":"view","type":"function"}
+    ];
+    // The Truffle deployment migration keeps this frontend config in sync.
+    const CONTRACT_ADDRESS = window.VERITY_CONTRACT_ADDRESS;
+    let web3, contract, currentAccount = null, refreshTimer = null, toastTimer = null, records = [], verifyHashRun = 0;
+    const $ = id => document.getElementById(id);
+    const shorten = (value, start=10, end=8) => `${value.slice(0,start)}…${value.slice(-end)}`;
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    function toast(message, type='success') { const el=$('toast'); el.textContent=message; el.className=`toast visible ${type}`; clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.className='toast',3600); }
+    function showResult(el, type, html) { el.className=`result show ${type}`; el.innerHTML=html; }
+    function resetResult(el) { el.className='result'; el.textContent=''; }
+    function setBusy(button, busy, label) { if (busy) { button.dataset.label=button.textContent; button.disabled=true; button.innerHTML=`<span class="spinner"></span>${label}`; } else { button.disabled=false; button.textContent=button.dataset.label || label; } }
+    function formatDate(seconds) { return new Date(Number(seconds)*1000).toLocaleString([], {dateStyle:'medium',timeStyle:'short'}); }
+    function markLoaded(id, value) { const el=$(id); el.textContent=value; el.classList.remove('loading'); }
+    function friendlyError(error) { const msg=error?.message || String(error); if (/User denied|User rejected|denied transaction/i.test(msg)) return 'Transaction was cancelled in your wallet.'; if (/already registered/i.test(msg)) return 'This fingerprint is already anchored on the blockchain.'; if (/File hash not found/i.test(msg)) return 'This fingerprint is not registered.'; return msg.replace(/^Error:\s*/,'').slice(0,300); }
+    async function connectWallet(request=true) {
+      if (!window.ethereum) { toast('Install MetaMask or another injected wallet to continue.','error'); return; }
+      if (!CONTRACT_ADDRESS) { toast('Contract address is missing. Run the Truffle migration, then refresh this page.','error'); return; }
+      try {
+        const accounts=await window.ethereum.request({method:request?'eth_requestAccounts':'eth_accounts'});
+        if (!accounts.length) { currentAccount=null; contract=null; updateWallet(); return; }
+        currentAccount=accounts[0]; web3=new Web3(window.ethereum); contract=new web3.eth.Contract(CONTRACT_ABI,CONTRACT_ADDRESS);
+        updateWallet(); await refreshDashboard(); startLiveRefresh();
+      } catch(error) { console.error(error); toast(friendlyError(error),'error'); }
+    }
+    function updateWallet() {
+      const chip=$('walletChip'), btn=$('connectBtn');
+      if (!currentAccount) { chip.textContent='No wallet'; chip.classList.remove('connected'); btn.textContent='Connect wallet ↗'; $('disconnectBtn').hidden=true; $('chainLabel').textContent='Wallet disconnected'; $('networkName').textContent='Waiting for wallet'; $('blockNumber').textContent='—'; $('registrySubtitle').textContent='Connect your wallet to view files you\'ve anchored.'; return; }
+      chip.textContent=shorten(currentAccount,6,4); chip.classList.add('connected'); btn.textContent='Wallet connected ✓'; $('disconnectBtn').hidden=false; $('chainLabel').textContent='Wallet connected'; $('registrySubtitle').textContent=`Showing files anchored by ${shorten(currentAccount,6,4)}.`;
+    }
+    function disconnectWallet() {
+      currentAccount=null; contract=null; records=[]; clearInterval(refreshTimer);
+      updateWallet(); markLoaded('userFilesCount','—'); $('registryCount').textContent='Wallet disconnected';
+      $('filesBody').innerHTML='<tr><td colspan="4"><div class="empty-state"><b>Wallet disconnected</b>Connect your wallet to load your on-chain files.</div></td></tr>';
+      $('totalFiles').textContent='—'; $('totalFiles').classList.add('loading'); $('latestBlock').textContent='—'; $('latestBlock').classList.add('loading');
+      $('tableFooter').textContent='Ethereum smart contract'; $('lastUpdated').textContent='Live data'; toast('Disconnected from this page. MetaMask site access remains enabled.');
+    }
+    async function refreshDashboard() {
+      if (!contract || !currentAccount) return;
+      try {
+        const chainId=await web3.eth.getChainId();
+        const deployedCode=await web3.eth.getCode(CONTRACT_ADDRESS);
+        if (!deployedCode || deployedCode==='0x' || deployedCode==='0x0') throw new Error(`No contract is deployed at ${CONTRACT_ADDRESS} on chain ${chainId}. Switch MetaMask to Ganache Local (chain ID 1337) and keep Ganache running.`);
+        const [total, block]=await Promise.all([contract.methods.totalFiles().call(),web3.eth.getBlockNumber()]);
+        markLoaded('totalFiles',Number(total).toLocaleString()); markLoaded('latestBlock',Number(block).toLocaleString()); $('blockNumber').textContent=`Block #${Number(block).toLocaleString()}`;
+        const chainNames={1:'Ethereum Mainnet',5:'Goerli Testnet',11155111:'Sepolia Testnet',1337:'Ganache Local',5777:'Ganache Local',31337:'Local Development'};
+        const name=chainNames[Number(chainId)] || `Chain ${chainId}`; $('networkName').textContent=name; $('chainLabel').textContent=name;
+        await loadMyFiles(false);
+      } catch(error) { console.error(error); $('networkName').textContent='Contract unavailable'; $('chainLabel').textContent='Check network'; markLoaded('totalFiles','—'); toast(`Could not read contract: ${friendlyError(error)}`,'error'); }
+    }
+    function startLiveRefresh() { clearInterval(refreshTimer); refreshTimer=setInterval(()=>refreshDashboard(),12000); }
+    async function hashFile(file) {
+      if (!window.crypto?.subtle) throw new Error('File hashing requires a secure browser context (HTTPS or localhost).');
+      const digest=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());
+      return '0x'+Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+    }
+    async function handleFile(inputId, prefix) {
+      const file=$(inputId).files[0], display=$(`${prefix}HashDisplay`), copy=$(`${prefix}FileCopy`), meta=$(`${prefix}FileMeta`);
+      const hashRun=prefix==='ver' ? ++verifyHashRun : null;
+      if (prefix==='ver') $('manualHash').value='';
+      if (!file) { display.textContent=prefix==='ver'?'Choose a file or enter a fingerprint below':'Choose a file to calculate its fingerprint'; display.classList.add('empty'); return; }
+      display.textContent='Calculating SHA-256…'; display.classList.add('empty'); copy.textContent=file.name; meta.textContent=`${(file.size/1024).toLocaleString(undefined,{maximumFractionDigits:1})} KB · file remains on this device`;
+      try { const hash=await hashFile(file); if(prefix==='ver' && hashRun!==verifyHashRun) return; display.textContent=hash; display.classList.remove('empty'); if(prefix==='reg') $('regFileName').value=file.name; }
+      catch(error) { if(prefix==='ver' && hashRun!==verifyHashRun) return; display.textContent=error.message; display.classList.add('empty'); toast(error.message,'error'); }
+    }
+    async function registerFile() {
+      const button=$('registerBtn'), hash=$('regHashDisplay').textContent, name=$('regFileName').value.trim(), result=$('regResult'); resetResult(result);
+      if (!currentAccount || !contract) { toast('Connect your wallet before anchoring a file.','error'); return; }
+      if (!/^0x[\da-f]{64}$/i.test(hash)) { toast('Choose a file and wait for its fingerprint to finish calculating.','error'); return; }
+      if (!name) { $('regFileName').focus(); toast('Add a display name for this file.','error'); return; }
+      setBusy(button,true,'Waiting for wallet…');
+      try {
+        const tx=await contract.methods.registerFile(hash,name).send({from:currentAccount});
+        showResult(result,'success',`<strong>✓ File anchored successfully</strong><br>Block <code>${tx.blockNumber}</code> · Transaction <code>${escapeHtml(shorten(tx.transactionHash,14,10))}</code>`);
+        toast('File fingerprint anchored on-chain.'); $('regFile').value=''; $('regFileCopy').innerHTML='Drop a file here or <span>browse</span>'; $('regFileMeta').textContent='Your file stays on this device'; $('regHashDisplay').textContent='Choose a file to calculate its fingerprint'; $('regHashDisplay').classList.add('empty'); $('regFileName').value=''; await refreshDashboard();
+      } catch(error) { showResult(result,'fail',`<strong>Could not anchor file</strong><br>${escapeHtml(friendlyError(error))}`); toast(friendlyError(error),'error'); }
+      finally { setBusy(button,false,'Anchor on blockchain'); }
+    }
+    async function verifyFile() {
+      const button=$('verifyBtn'), selectedFile=$('verFile').files[0], manualHash=$('manualHash').value.trim(), displayedHash=$('verHashDisplay').textContent;
+      const fileHash=selectedFile ? displayedHash : manualHash, result=$('verResult'); resetResult(result);
+      if (!contract) { toast('Connect your wallet to verify against this contract.','error'); return; }
+      if (selectedFile && !/^0x[\da-f]{64}$/i.test(displayedHash)) { toast('Wait for the selected file fingerprint to finish calculating.','error'); return; }
+      if (!/^0x[\da-f]{64}$/i.test(fileHash)) { toast('Enter a valid 32-byte fingerprint (0x followed by 64 hex characters).','error'); return; }
+      setBusy(button,true,'Checking chain…');
+      try {
+        const res=await contract.methods.verifyFile(fileHash).call();
+        if (res.isRegistered) showResult(result,'success',`<strong>✓ Fingerprint verified</strong><br>File: <code>${escapeHtml(res.fileName)}</code><br>Owner: <code>${escapeHtml(shorten(res.owner,10,8))}</code><br>Anchored: <code>${escapeHtml(formatDate(res.timestamp))}</code>`);
+        else showResult(result,'fail','<strong>Fingerprint not found</strong><br>This file has not been anchored on this contract.');
+      } catch(error) { showResult(result,'fail',`<strong>Verification failed</strong><br>${escapeHtml(friendlyError(error))}`); }
+      finally { setBusy(button,false,'Verify fingerprint'); }
+    }
+    async function loadMyFiles(showErrors=true) {
+      if (!contract || !currentAccount) return;
+      const body=$('filesBody');
+      try {
+        const hashes=await contract.methods.getUserFiles(currentAccount).call();
+        records=await Promise.all(hashes.map(async hash=>{const details=await contract.methods.getFileDetails(hash).call();return {hash,name:details.fileName,timestamp:details.timestamp};}));
+        markLoaded('userFilesCount',records.length.toLocaleString()); renderFiles(); $('registryCount').textContent=`${records.length} ${records.length===1?'file':'files'} anchored by your wallet`; $('lastUpdated').textContent=`Updated ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+      } catch(error) { console.error(error); if(showErrors) { body.innerHTML=`<tr><td colspan="4"><div class="empty-state"><b>Could not load your registry</b>${escapeHtml(friendlyError(error))}</div></td></tr>`; toast('Could not load registered files. Check your network.','error'); } }
+    }
+    function renderFiles() {
+      const body=$('filesBody'), query=$('fileSearch').value.trim().toLowerCase();
+      const filtered=records.filter(row=>row.name.toLowerCase().includes(query)||row.hash.toLowerCase().includes(query));
+      if (!filtered.length) { body.innerHTML=`<tr><td colspan="4"><div class="empty-state"><b>${records.length?'No matching files':'Nothing anchored yet'}</b>${records.length?'Try another name or fingerprint.':'Anchor your first file above to build your on-chain registry.'}</div></td></tr>`; return; }
+      body.innerHTML=filtered.map(row=>`<tr><td><span class="file-name">${escapeHtml(row.name)}</span></td><td class="hash" title="${escapeHtml(row.hash)}">${escapeHtml(shorten(row.hash,14,10))}</td><td>${escapeHtml(formatDate(row.timestamp))}</td><td><span class="badge"><span class="dot"></span> Anchored</span></td></tr>`).join('');
+    }
+    $('connectBtn').addEventListener('click',()=>connectWallet(true)); $('disconnectBtn').addEventListener('click',disconnectWallet); $('registerBtn').addEventListener('click',registerFile); $('verifyBtn').addEventListener('click',verifyFile); $('refreshBtn').addEventListener('click',()=>refreshDashboard()); $('fileSearch').addEventListener('input',renderFiles);
+    $('regFile').addEventListener('change',()=>handleFile('regFile','reg')); $('verFile').addEventListener('change',()=>handleFile('verFile','ver'));
+    for (const [id,input] of [['regDrop','regFile'],['verDrop','verFile']]) { const zone=$(id); for(const event of ['dragenter','dragover']) zone.addEventListener(event,e=>{e.preventDefault();zone.classList.add('drag');}); for(const event of ['dragleave','drop']) zone.addEventListener(event,e=>{e.preventDefault();zone.classList.remove('drag');}); zone.addEventListener('drop',e=>{if(e.dataTransfer.files.length){$(input).files=e.dataTransfer.files;$(input).dispatchEvent(new Event('change'));}}); }
+    $('manualHash').addEventListener('input',()=>{if($('manualHash').value.trim()){ $('verFile').value=''; $('verFileCopy').innerHTML='Drop a file here or <span>browse</span>'; $('verFileMeta').textContent='Only the fingerprint is checked'; $('verHashDisplay').textContent='Using manually entered fingerprint'; $('verHashDisplay').classList.add('empty'); }});
+    if (window.ethereum) { window.ethereum.on('accountsChanged',accounts=>{currentAccount=accounts[0]||null;records=[];updateWallet();if(currentAccount){refreshDashboard();startLiveRefresh();}else{clearInterval(refreshTimer);markLoaded('userFilesCount','—');$('filesBody').innerHTML='<tr><td colspan="4"><div class="empty-state"><b>Wallet disconnected</b>Connect your wallet to load your on-chain files.</div></td></tr>';}}); window.ethereum.on('chainChanged',()=>connectWallet(false)); connectWallet(false); }
+  </script>
+</body>
+</html>
